@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=23789163Qw
+      - POSTGRES_DB=api
+    container_name: api
+    volumes:
+      - data_for_api:/var/lib/postgresql/data
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=root@mail.ru
+      - PGADMIN_DEFAULT_PASSWORD=654321
+    container_name: pgadmin
+    ports:
+      - 8080:80
+    depends_on:
+      - postgres
+
+
+volumes:
+  data_for_api:
