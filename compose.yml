@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: fastapi_db
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=23789163Qw
+      - POSTGRES_DB=app
+    volumes:
+      - fastapi:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 8080:80
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=root@mail.ru
+      - PGADMIN_DEFAULT_PASSWORD=654321Qw
+    depends_on:
+      - postgres
+
+
+volumes:
+  fastapi:
