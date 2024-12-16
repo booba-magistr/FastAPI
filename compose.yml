@@ -8,6 +8,8 @@ services:
       - POSTGRES_DB=app
     volumes:
       - fastapi:/var/lib/postgresql/data
+    ports:
+      - 5000:5432
 
   pgadmin:
     image: dpage/pgadmin4

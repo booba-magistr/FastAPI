@@ -1,0 +1,19 @@
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
+from sqlalchemy.orm import DeclarativeBase, declared_attr, Mapped, mapped_column
+from sqlalchemy import DateTime, func
+from .config import get_db_url
+
+
+database_url = get_db_url()
+engine = create_async_engine(database_url, echo=True)
+session_maker = async_sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False)
+
+class Base(DeclarativeBase):
+    __abstract__ = True
+
+    @declared_attr.directive
+    def __tablename__(cls):
+        return f'{cls.__name__.lower()}s'
+    
+    created: Mapped[DateTime] = mapped_column(DateTime, default=func.now())
+    updated: Mapped[DateTime] = mapped_column(DateTime, default=func.now(), onupdate=func.now())
