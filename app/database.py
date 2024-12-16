@@ -13,7 +13,7 @@ class Base(DeclarativeBase):
 
     @declared_attr.directive
     def __tablename__(cls):
-        return f'{cls.__name__.lower()}s'
+        return f'{cls.__name__.lower()}'
     
     created: Mapped[DateTime] = mapped_column(DateTime, default=func.now())
     updated: Mapped[DateTime] = mapped_column(DateTime, default=func.now(), onupdate=func.now())
