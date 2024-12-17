@@ -3,6 +3,7 @@ from sqlalchemy import select
 from database import session_maker
 from products.models import Product
 from products.dao import ProductDAO
+from products.schemas import Product
 
 
 product_router = APIRouter(prefix='/product', tags=['Товары'])
@@ -10,4 +11,4 @@ product_router = APIRouter(prefix='/product', tags=['Товары'])
 
 @product_router.get('/', summary='Получить меню')
 async def product():
-    return await ProductDAO.get_products()
+    return await ProductDAO.get_all()
