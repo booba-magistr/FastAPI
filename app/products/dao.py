@@ -1,7 +1,13 @@
-from fastapi import APIRouter
 from sqlalchemy import select
-from app.database import session_maker
-from app.products.models import Product
+from products.models import Product
+from database import session_maker
 
 
-router = APIRouter(prefix='/product', tags=['Товары'])
+class ProductDAO:
+    @classmethod
+    async def get_products(cls):
+        async with session_maker() as session:
+            query = select(Product)
+            products = await session.execute(query)
+            result = products.scalars.all()
+            return result
