@@ -11,7 +11,7 @@ class Product(Base):
     price: Mapped[float] = mapped_column(Numeric(6, 2))
     weight: Mapped[int]
 
-    category: Mapped['Category'] = relationship(backref='product')
+    category: Mapped['Category'] = relationship('Category', back_populates='products')
 
     def to_dict(self):
         return {
@@ -27,3 +27,5 @@ class Product(Base):
 class Category(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(150))
+
+    products: Mapped[list['Product']] = relationship('Product', back_populates='category')
