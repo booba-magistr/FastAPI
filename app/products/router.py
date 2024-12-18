@@ -1,14 +1,13 @@
-from fastapi import APIRouter
-from sqlalchemy import select
-from database import session_maker
-from products.models import Product
+from fastapi import APIRouter, Depends
 from products.dao import ProductDAO
-from products.schemas import Product
+from .schemas import Product
+from products.rb import RBProduct
 
 
 product_router = APIRouter(prefix='/product', tags=['Товары'])
 
 
-@product_router.get('/', summary='Получить меню')
-async def product():
-    return await ProductDAO.get_all()
+@product_router.get('/', summary='Получить меню', response_model=list[Product])
+async def product(request_body: RBProduct = Depends()):
+    # response_model- example value response body
+    return await ProductDAO.get_all(**request_body.to_dict())
