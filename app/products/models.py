@@ -13,6 +13,16 @@ class Product(Base):
 
     category: Mapped['Category'] = relationship(backref='product')
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'category_id': self.category_id,
+            'name': self.name,
+            'description': self.description,
+            'price': self.price,
+            'weight': self.weight
+        }
+
 
 class Category(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)

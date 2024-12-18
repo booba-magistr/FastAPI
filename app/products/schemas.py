@@ -9,3 +9,4 @@ class Product(BaseModel):
     description: str = Field(..., description='Описание товара')
     price: float = Field(..., description='два знака после запятой')
     weight: int = Field(..., description='Целое число в граммах')
+    category: str = Field(..., description='Категория товаров', max_length=150)
