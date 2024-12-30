@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
-from products.dao import ProductDAO
+from .dao import ProductDAO
 from .schemas import Product
-from products.rb import RBProduct
+from .rb import RBProduct
 
 
 product_router = APIRouter(prefix='/product', tags=['Товары'])
