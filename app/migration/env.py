@@ -7,26 +7,20 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
 
-
-############# Alembic думает, что он находится в папке app #############
-
 import sys
 from os.path import dirname, abspath
-
 sys.path.insert(0, dirname(dirname(abspath(__file__))))
-
-from app.database import DATABASE_URL, Base
-from app.products.models import Product, Category
-
-########################################################################
+from database import DATABASE_URL, Base
+from products.models import Product
+from category.models import Category
 
 config = context.config
 config.set_main_option('sqlalchemy.url', DATABASE_URL)
+
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 target_metadata = Base.metadata
-
 
 def run_migrations_offline() -> None:
     url = config.get_main_option("sqlalchemy.url")

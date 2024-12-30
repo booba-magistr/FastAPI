@@ -4,7 +4,7 @@ class RBProduct:
         self.id = product_id
         self.name = product_name
 
-    def to_dict(self):
+    def to_dict(self):  # Для формирования SELECT запросов
         data = {'id': self.id, 'name': self.name}
         filtered_data = {key: value for key, value in data.items() if value is not None}
         return filtered_data
