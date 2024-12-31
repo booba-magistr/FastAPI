@@ -6,7 +6,7 @@ from .schemas import SchemaCategoryAdd, SchemaCategoryUpdate
 category_router = APIRouter(prefix='/category', tags=['Категории'])
 
 
-@category_router.post('/add/')
+@category_router.post('/add/', summary='Add category')
 async def add_category(category: SchemaCategoryAdd):
     status = await CategoryDAO.add(**category.dict())
 
@@ -14,7 +14,7 @@ async def add_category(category: SchemaCategoryAdd):
         return {'status': 'success', 'category': status}
     return {'status': 'add error'}
 
-@category_router.put('/update/')
+@category_router.put('/update/', summary='Update category')
 async def update_category(category: SchemaCategoryUpdate):
     status = await CategoryDAO.update(filter_by={'id': category.id},
                                       name=category.name)
@@ -23,7 +23,7 @@ async def update_category(category: SchemaCategoryUpdate):
         return {'status': 'success', 'category': category}
     return {'status': 'update error'}
 
-@category_router.delete('/delete/{category_id}')  # Без модели, тк тут всего один параметр
+@category_router.delete('/delete/{category_id}', summary='Delete category')  # Без модели, тк тут всего один параметр
 async def delete(category_id: int):
     status = await CategoryDAO.delete(id=category_id)
 
