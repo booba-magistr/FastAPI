@@ -32,7 +32,7 @@ class BaseDAO:
                 try:  # Пытаюсь закрепить информацию в БД
                     await session.commit()
                 except SQLAlchemyError as exception:  # Открываем транзакцию и пробрасываю исключение дальше
-                    await session.rollback()
+                    await session.rollback()  # Если возникает ошибка, отмена всех изменений(транзакция откатывается)
                     raise exception
                 return obj 
             
@@ -49,6 +49,22 @@ class BaseDAO:
                 result = await session.execute(query)
                 try:
                     await session.commit()
+                except SQLAlchemyError as exception:
+                    await session.rollback()  
+                    raise exception
+                return result.rowcount  # Возвращается кол-во строк
+            
+    @classmethod
+    async def delete(cls, delete_all=False, **filter_by):
+        if not delete_all and not filter_by:
+            raise ValueError('Нужен хотя бы один параметр для удаления')
+        
+        async with session_maker() as session:
+            async with session.begin():
+                query = delete(cls.model).filter_by(**filter_by)
+                result = await session.execute(query)
+                try:
+                    session.commit()
                 except SQLAlchemyError as exception:
                     await session.rollback()
                     raise exception
