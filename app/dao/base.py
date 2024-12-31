@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
 from database import session_maker
-from products.models import Category
+from sqlalchemy import update, delete 
 
 
 class BaseDAO:
@@ -26,7 +26,7 @@ class BaseDAO:
     @classmethod
     async def add(cls, **values):
         async with session_maker() as session:
-            async with session.begin():  # Начинается транзакция
+            async with session.begin():  # Начинается транзакция(группировка операций для выполнения как одной единицы)
                 obj = cls.model(**values)  # Создаю объект класса  
                 session.add(obj)  # Добавляю экземпляр в сессию
                 try:  # Пытаюсь закрепить информацию в БД
@@ -34,4 +34,22 @@ class BaseDAO:
                 except SQLAlchemyError as exception:  # Открываем транзакцию и пробрасываю исключение дальше
                     await session.rollback()
                     raise exception
-                return obj  
+                return obj 
+            
+    @classmethod
+    async def update(cls, filter_by, **values):
+        async with session_maker() as session:
+            async with session.begin():
+                query = (
+                update(cls.model)  # Создается запрос на обновление данных 
+                .where(*[getattr(cls.model, k) == v for k, v in filter_by.items()])
+                .values(**values)
+                .execution_options(synchronize_session="fetch")  # Для синхронизации состояния сессии с БД после выполнения запроса 
+                )
+                result = await session.execute(query)
+                try:
+                    await session.commit()
+                except SQLAlchemyError as exception:
+                    await session.rollback()
+                    raise exception
+                return result.rowcount
