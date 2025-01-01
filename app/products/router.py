@@ -28,3 +28,12 @@ async def add_product(product: SchemaProductAdd):
     if status:
         return {'status': 'success', 'product': product}
     return {'status': 'add error'}
+
+
+@product_router.delete('/delete/{product_id}')
+async def delete_product(product_id:int):
+    status = await ProductDAO.delete_product_by_id(product_id=product_id)
+
+    if status:
+        return {'status': f'Продукт с id={product_id} удалён'}
+    return {'status': 'delete error'}

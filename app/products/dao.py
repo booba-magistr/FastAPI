@@ -16,6 +16,15 @@ def receive_after_insert(mapper, connection, target):
         .values(count=Category.count + 1)
     )
 
+@event.listens_for(Product, 'after_delete')
+def receive_after_delete(mapper, connection, target):
+    category_id = target.category_id
+    connection.execute(
+        update(Category)
+        .where(Category.id == category_id)
+        .values(count=Category.count - 1)
+    )
+
 class ProductDAO(BaseDAO):
     model = Product
 
@@ -43,3 +52,18 @@ class ProductDAO(BaseDAO):
                 new_product_id = new_product.id
                 await session.commit()
                 return new_product_id
+            
+    @classmethod
+    async def delete_product_by_id(cls, product_id):
+        async with session_maker() as session:
+            async with session.begin():
+                query = select(cls.model).filter_by(id=product_id)
+                result = await session.execute(query)
+                delete_product = result.scalar_one_or_none()
+
+                if not delete_product:
+                    return None
+                
+                await session.execute(delete(cls.model).filter_by(id=product_id))
+                await session.commit()
+                return product_id
