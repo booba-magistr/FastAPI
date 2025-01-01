@@ -11,6 +11,7 @@ class Product(Base):
     description: Mapped[str] = mapped_column(Text, nullable=False)
     price: Mapped[float] = mapped_column(Numeric(6, 2))
     weight: Mapped[int]
+    img: Mapped[str] = mapped_column(Text, nullable=True)
 
     category: Mapped['Category'] = relationship('Category', back_populates='products')
 

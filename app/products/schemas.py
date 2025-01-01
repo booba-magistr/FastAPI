@@ -9,4 +9,13 @@ class Product(BaseModel):
     description: str = Field(..., description='Описание товара')
     price: float = Field(..., description='два знака после запятой')
     weight: int = Field(..., description='Целое число в граммах')
-    category: str = Field(..., description='Категория товаров', max_length=150)
+    img: str = Field(None, description='Фотография товара')
+
+
+class SchemaProductAdd(BaseModel):
+    category_id: int = Field(..., description='Id категории')
+    name: str = Field(..., max_length=130, description='Имя товара')
+    description: str = Field(..., description='Описание товара')
+    price: float = Field(..., description='два знака после запятой')
+    weight: int = Field(..., description='Целое число в граммах')
+    img: str = Field(None, description='Фотография товара')

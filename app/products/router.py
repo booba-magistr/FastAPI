@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from .dao import ProductDAO
-from .schemas import Product
+from .schemas import Product, SchemaProductAdd
 from .rb import RBProduct
 
 
@@ -19,3 +19,12 @@ async def get_product(product_id:int):
     if result is None:
         return {'message': f'Товар с id:{product_id} не найден'}
     return result
+
+
+@product_router.post('/add/', summary='Add Product')
+async def add_product(product: SchemaProductAdd):
+    status = await ProductDAO.add_product(**product.dict())
+
+    if status:
+        return {'status': 'success', 'product': product}
+    return {'status': 'add error'}
