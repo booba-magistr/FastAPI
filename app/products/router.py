@@ -30,10 +30,19 @@ async def add_product(product: SchemaProductAdd):
     return {'status': 'add error'}
 
 
-@product_router.delete('/delete/{product_id}')
+@product_router.delete('/delete/{product_id}', summary='Delete Product')
 async def delete_product(product_id:int):
     status = await ProductDAO.delete_product_by_id(product_id=product_id)
 
     if status:
         return {'status': f'Продукт с id={product_id} удалён'}
     return {'status': 'delete error'}
+
+
+@product_router.put('/update/', summary='Update Product')
+async def update_product(product_update: Product):
+    status = await ProductDAO.update(filter_by={'id': product_update.id}, **product_update.dict())
+
+    if status:
+        return {'status': 'update success', 'product': product_update}
+    return {'status': 'update error'}
