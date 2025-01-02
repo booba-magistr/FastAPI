@@ -14,6 +14,7 @@ async def add_category(category: SchemaCategoryAdd):
         return {'status': 'success', 'category': status}
     return {'status': 'add error'}
 
+
 @category_router.put('/update/', summary='Update category')
 async def update_category(category: SchemaCategoryUpdate):
     status = await CategoryDAO.update(filter_by={'id': category.id},
@@ -22,6 +23,7 @@ async def update_category(category: SchemaCategoryUpdate):
     if status:
         return {'status': 'success', 'category': category}
     return {'status': 'update error'}
+
 
 @category_router.delete('/delete/{category_id}', summary='Delete category')  # Без модели, тк тут всего один параметр
 async def delete(category_id: int):

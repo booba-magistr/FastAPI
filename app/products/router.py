@@ -7,7 +7,7 @@ from .rb import RBProduct
 product_router = APIRouter(prefix='/product', tags=['Товары'])
 
 
-@product_router.get('/', summary='Get product menu', response_model=list[Product])
+@product_router.get('/', summary='Get product by name/id', response_model=list[Product])
 async def get_products(request_body: RBProduct = Depends()):
     # response_model- example value response body
     return await ProductDAO.get_all(**request_body.to_dict())
@@ -46,3 +46,11 @@ async def update_product(product_update: Product):
     if status:
         return {'status': 'update success', 'product': product_update}
     return {'status': 'update error'}
+
+@product_router.get('/categories/{category_id}/', summary='Get list products by category_id')
+async def get_lst_products(category_id:int):
+    status = await ProductDAO.get_products_by_category_id(category_id=category_id)
+
+    if status:
+        return {'status': 'success', 'products': status}
+    return {'status': 'error'}

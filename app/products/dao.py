@@ -43,6 +43,14 @@ class ProductDAO(BaseDAO):
             return product_info
         
     @classmethod
+    async def get_products_by_category_id(cls, category_id:int):
+        async with session_maker() as session:
+            query = select(cls.model).where(cls.model.category_id == category_id)
+            result = await session.execute(query)
+            lst_products = result.scalars().all()
+            return lst_products
+        
+    @classmethod
     async def add_product(cls, **product_data:dict):
         async with session_maker() as session:
             async with session.begin():
