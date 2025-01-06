@@ -20,3 +20,13 @@ def get_password_hash(password:str):
 
 def verify_password(plain_password:str, hashed_password:str) -> bool:
     return password_context.verify(plain_password, hashed_password)
+
+def create_access_token(data:dict):
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + timedelta(days=30)  # 30 дней длится токен
+    to_encode.update({'exp': expire})
+    auth_data = get_auth_data()
+    # кодировка данных в JWT с помощью секретного ключа и алгоритма шифрования
+    encode_jwt = jwt.encode(to_encode, auth_data['secret_key'], algorithm=auth_data['algorithm'])
+    return encode_jwt  # токен для аутентификации пользователей (далее он пойдёт в куки
+    #  после чего мы сможешь его считывать)
