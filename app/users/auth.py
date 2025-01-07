@@ -22,6 +22,8 @@ def get_password_hash(password:str):
     return password_context.hash(password)
 
 def verify_password(plain_password:str, hashed_password:str) -> bool:
+    # plain_password - обычный пароль
+    # hashed_password - хэшированный пароль
     return password_context.verify(plain_password, hashed_password)
 
 def create_access_token(data:dict):
@@ -32,7 +34,7 @@ def create_access_token(data:dict):
     # кодировка данных в JWT с помощью секретного ключа и алгоритма шифрования
     encode_jwt = jwt.encode(to_encode, auth_data['secret_key'], algorithm=auth_data['algorithm'])
     return encode_jwt  # токен для аутентификации пользователей (далее он пойдёт в куки
-    #  после чего мы сможешь его считывать)
+    #  после чего его можно считывать)
 
 async def authenticate_user(email: EmailStr, password: str):
     user = await UsersDAO.get_user_by_email(email=email)

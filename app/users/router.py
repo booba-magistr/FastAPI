@@ -1,7 +1,9 @@
-from fastapi import APIRouter, HTTPException, status, Response
+from fastapi import APIRouter, HTTPException, status, Response, Depends
 from .auth import get_password_hash, authenticate_user, create_access_token
 from .dao import UsersDAO
 from .schemas import SchemaUserRegistration, SchemaUserAuth
+from .dependencies import get_current_user
+from .models import User
 
 
 user_router = APIRouter(prefix='/users', tags=['Пользователи'])
@@ -33,7 +35,18 @@ async def login_user(response: Response, user_data: SchemaUserAuth):
     
     access_token = create_access_token({'sub': str(user_auth.id)})  # Создается JWT токен
     # Токен записывается в куку
-    response.set_cookie(key='users_access_toke', value=access_token, httponly=True)
+    response.set_cookie(key='users_access_token', value=access_token, httponly=True)
     # httponly=True - куки должны быть доступны только через http или https (не доступны
     # скриптам JavaScript на стороне клиента) для повышения безопасности от атак XSS(межсайтовый скриптинг)
     return {'access_token': access_token, 'refresh_token': None}
+
+
+@user_router.get('/profile/')
+async def get_profile(user_data: User = Depends(get_current_user)):
+    return user_data
+
+
+@user_router.post('/logout/')
+async def logout_user(response:Response):
+    response.delete_cookie(key='users_access_token')
+    return {'status': 'success', 'message': 'Вы вышли из системы'}
