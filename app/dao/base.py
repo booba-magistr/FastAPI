@@ -11,8 +11,8 @@ class BaseDAO:
     async def get_all(cls, **filter_by):
         async with session_maker() as session:
             query = select(cls.model).filter_by(**filter_by)
-            products = await session.execute(query)
-            result = products.scalars().all()
+            get_all = await session.execute(query)
+            result = get_all.scalars().all()
             return result
         
     @classmethod

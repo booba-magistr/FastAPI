@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, status, Response, Depends
 from .auth import get_password_hash, authenticate_user, create_access_token
 from .dao import UsersDAO
 from .schemas import SchemaUserRegistration, SchemaUserAuth
-from .dependencies import get_current_user
+from .dependencies import get_current_user, get_current_admin_user
 from .models import User
 
 
@@ -50,3 +50,8 @@ async def get_profile(user_data: User = Depends(get_current_user)):
 async def logout_user(response:Response):
     response.delete_cookie(key='users_access_token')
     return {'status': 'success', 'message': 'Вы вышли из системы'}
+
+
+@user_router.get('/users_list/')
+async def get_users_list(user_data: User = Depends(get_current_admin_user)):
+    return await UsersDAO.get_all()
