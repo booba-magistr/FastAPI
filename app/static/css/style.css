@@ -1,0 +1,80 @@
+@import url(https://fonts.googleapis.com/css?family=Overpass);
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body {
+    font-family: Overpass;
+}
+
+header{
+    width: 100%;
+    background-color: rgb(0, 209, 52);
+    height: 50px;
+    padding: 10px 0;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.inside-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1300px;
+    height: 100%;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title {
+    font-size: 2em;
+}
+
+.login {
+    font-size: 1.45em;
+}
+
+section {
+    margin-top: 30px;
+    width: 1300px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ul {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    font-size: 1.4em;
+    color: white;
+}
+
+li{
+    padding: 10px 20px;
+    background-color: rgb(0, 209, 52);
+    transition: 0.2s;
+}
+
+li:hover {
+    background-color: rgb(0, 153, 38);
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.grid-products {
+    margin-top: 30px;
+    display: grid;
+    /* background-color: red; */
+    grid-template-columns: repeat(4, 280px);
+    justify-content: space-between;
+}
+
+.product {
+    border: 3px solid green;
+    margin-bottom: 30px;
+}

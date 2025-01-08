@@ -4,20 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Суши</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div class="page">
-        <header></header>
-        <section>
+    <header>
+        <div class="inside-header">
+            <div class="title">
+                SUSHI-BOOBA(BETA)
+            </div>
+            <div class="login">
+                Войти
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="category">
+            <ul>
+                <li>Запеченные</li>
+                <li>Оригинальные</li>
+                <li>Суши</li>
+                <li>Сеты</li>
+            </ul>
+        </div>
+        <div class="grid-products">
             {% for product in products %}
             <div class="product">
+                <p>ФОТО</p>
                 <h1>{{ product.name }}</h1>
                 <p>{{ product.description }}</p>
-                <p>{{ product.price }}</p>
+                <p>{{ product.price }}&#8381;</p>
             </div>
             {% endfor %}
-        </section>
-        <footer></footer>
-    </div>
+        </div>
+    </section>
 </body>
 </html>
