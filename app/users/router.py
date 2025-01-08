@@ -38,7 +38,7 @@ async def login_user(response: Response, user_data: SchemaUserAuth):
     response.set_cookie(key='users_access_token', value=access_token, httponly=True)
     # httponly=True - куки должны быть доступны только через http или https (не доступны
     # скриптам JavaScript на стороне клиента) для повышения безопасности от атак XSS(межсайтовый скриптинг)
-    return {'access_token': access_token, 'refresh_token': None}
+    return {'status': 'success', 'access_token': access_token, 'refresh_token': None}
 
 
 @user_router.get('/profile/')

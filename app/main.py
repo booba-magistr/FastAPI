@@ -3,6 +3,7 @@ import uvicorn
 from products.router import product_router
 from category.router import category_router
 from users.router import user_router
+from pages.router import front_router
 
 
 app = FastAPI()
@@ -16,6 +17,7 @@ def test():
 app.include_router(product_router)
 app.include_router(category_router)
 app.include_router(user_router)
+app.include_router(front_router)
 
 
 if __name__ == '__main__':
