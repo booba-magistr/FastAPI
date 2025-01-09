@@ -71,10 +71,64 @@ li:hover {
     display: grid;
     /* background-color: red; */
     grid-template-columns: repeat(4, 280px);
+    grid-template-rows: repeat(3, 400px);
     justify-content: space-between;
 }
 
 .product {
     border: 3px solid green;
     margin-bottom: 30px;
+    border-radius: 14px;
+    transition: .2s;
+}
+
+.product:hover {
+    scale: 1.05;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+img {
+    border-radius: 14px 14px 0 0;
+    width: 100%;
+}
+
+.card-description {
+    padding-inline: 5px;
+    position: relative;
+    height: 40%;
+}
+
+.card-title {
+    font-size: 1.3em;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.card-ingredients {
+    text-align: justify;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+.weight-price {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    /* background-color: red; */
+}
+
+.card-price {
+    font-size: 2em;
+    margin-right: 13px;
 }

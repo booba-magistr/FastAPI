@@ -29,10 +29,25 @@
         <div class="grid-products">
             {% for product in products %}
             <div class="product">
-                <p>ФОТО</p>
-                <h1>{{ product.name }}</h1>
-                <p>{{ product.description }}</p>
-                <p>{{ product.price }}&#8381;</p>
+                <div class="card-image">
+                    <a href="/products/{{ product.id }}"><img src="/static/images/{{product.id}}.webp" alt=""></a>
+                </div>
+                <div class="card-description">
+                    <div class="card-title">
+                        {{ product.name }}
+                    </div>
+                    <div class="card-ingredients">
+                        {{ product.description }}
+                    </div>
+                    <div class="weight-price">
+                        <div class="card-price">
+                            {{ product.price }}&#8381;
+                        </div>
+                        <div class="card-weigh">
+                            {{ product.weight }} гр.
+                        </div>
+                    </div>
+                </div>
             </div>
             {% endfor %}
         </div>
