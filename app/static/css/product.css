@@ -1,0 +1,33 @@
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.product-img img {
+    width: 70%;
+}
+
+.product-title {
+    font-size: 1.7em;
+    margin-bottom: 30px;
+}
+
+.product-page {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.product-description {
+    font-weight: 700;
+    font-size: 1.7em;
+}
+
+.product-info {
+    display: flex;
+}
+
+.product-price-weight>* {
+    margin-bottom: 20px;
+    font-size: 1.1em;
+}

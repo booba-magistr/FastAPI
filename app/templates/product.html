@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{product.name}}</title>
+    <link rel="stylesheet" href="/static/css/product.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="inside-header">
+            <div class="title">
+                <a href="/pages/products">SUSHI-BOOBA(BETA)</a>
+            </div>
+            <div class="login">
+                Войти
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="product-page">
+            <div class="product-title">
+                <h1>{{product.name}}</h1>
+            </div>
+            <div class="product-info">
+                <div class="product-title-photo">
+                    <div class="product-img">
+                        <img src="/static/images/{{product.id}}.webp" alt="{{product.name}}">
+                    </div>
+                </div>
+                <div class="product-price-weight">
+                    <div class="product-description"><p>Описание</p></div>
+                    <div class="product-ingredients">
+                        {{ product.description }}
+                    </div>
+                    <div class="product-price">
+                        Цена: {{ product.price }}&#8381;
+                    </div>
+                    <div class="product-weight">
+                        Масса: {{ product.weight }} г.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
