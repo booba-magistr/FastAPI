@@ -32,3 +32,7 @@ async def delete(category_id: int):
     if status:
         return {'status': 'success', 'message': f'Категория с {category_id} удалена'}
     return {'status': 'delete error'}
+
+@category_router.get('/all_categories')
+async def get_categories():
+    return await CategoryDAO.get_all()

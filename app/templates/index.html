@@ -20,10 +20,10 @@
     <section>
         <div class="category">
             <ul>
-                <li>Запеченные</li>
-                <li>Оригинальные</li>
-                <li>Суши</li>
-                <li>Сеты</li>
+                <li><a href="/pages/products">Все</a></li>
+                {% for category in categories %}
+                <li><a href="/pages/products?category_id={{category.id}}">{{category.name}}</a></li>
+                {% endfor %}
             </ul>
         </div>
         <div class="grid-products">

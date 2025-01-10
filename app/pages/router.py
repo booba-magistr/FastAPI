@@ -2,16 +2,20 @@ from fastapi import APIRouter, Request, Depends, UploadFile
 import shutil
 from fastapi.templating import Jinja2Templates
 from products.router import get_products, get_product
+from category.router import get_categories
 
 
 front_router = APIRouter(prefix='/pages', tags=['Фронт'])
 templates = Jinja2Templates(directory='app/templates')
 
 @front_router.get('/products')  # localhost:8000/pages/products
-async def get_products_html(request: Request, products=Depends(get_products)):  # Обязательный параметр request для управления
+async def get_products_html(request: Request, 
+                            products=Depends(get_products),
+                            categories=Depends(get_categories)):  # Обязательный параметр request для управления
     # различными функциями (url-генерация и работа с сессиями)
     return templates.TemplateResponse(name='index.html', context={'request': request,
-                                                                  'products': products})
+                                                                  'products': products,
+                                                                  'categories': categories})
 
 @front_router.post('/add_photo')
 async def add_photo(file: UploadFile, img_name: int):
