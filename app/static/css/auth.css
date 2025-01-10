@@ -1,0 +1,68 @@
+@import url(https://fonts.googleapis.com/css?family=Overpass);
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Overpass;
+}
+
+.container {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(0, 209, 52, 0.3);
+    border: 2px solid green;
+    padding: 20px;
+    border-radius: 4px;
+    margin-top: 60px;
+}
+
+h1 {
+    font-size: 2em;
+    color: rgb(0, 209, 52);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.registration-form label {
+    color: rgb(0, 145, 36);
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+.registration-form input {
+    color: rgb(0, 145, 36);
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    padding: 10px 5px;
+    border: 1px solid white;
+    border-radius: 4px;
+}
+
+.registration-form input {
+    outline: none;
+}
+
+.submit-button {
+    margin-bottom: 10px;
+    font-size: 1.3em;
+    color: white;
+    background-color: rgb(0, 209, 52);
+    cursor: pointer;
+    border: none;
+    padding: 5px 0;
+    border-radius: 4px;
+    transition: .1s;
+}
+
+.submit-button:hover {
+    background-color: rgb(12, 134, 43);
+}
