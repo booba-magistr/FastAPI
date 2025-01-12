@@ -28,3 +28,7 @@ async def add_photo(file: UploadFile, img_name: int):
 async def get_product_html(request: Request, product = Depends(get_product)):
     return templates.TemplateResponse(name='product.html', context={'request': request,
                                                                     'product': product})
+
+@front_router.get('/register')
+async def register(request: Request):
+    return templates.TemplateResponse(name='auth.html', context={'request': request})
