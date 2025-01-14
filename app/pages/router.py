@@ -32,3 +32,7 @@ async def get_product_html(request: Request, product = Depends(get_product)):
 @front_router.get('/register')
 async def register(request: Request):
     return templates.TemplateResponse(name='auth.html', context={'request': request})
+
+@front_router.get('/login/')
+async def login_user(request: Request):
+    return templates.TemplateResponse(name='login.html', context={'request': request})
