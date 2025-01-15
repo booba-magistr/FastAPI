@@ -3,6 +3,7 @@ import shutil
 from fastapi.templating import Jinja2Templates
 from products.router import get_products, get_product
 from category.router import get_categories
+from users.router import get_profile
 
 
 front_router = APIRouter(prefix='/pages', tags=['Фронт'])
@@ -36,3 +37,8 @@ async def register(request: Request):
 @front_router.get('/login/')
 async def login_user(request: Request):
     return templates.TemplateResponse(name='login.html', context={'request': request})
+
+@front_router.get('/profile/')
+async def get_profile_html(request: Request, user_data = Depends(get_profile)):
+    return templates.TemplateResponse(name='profile.html', context={'request': request,
+                                                                    'user': user_data})

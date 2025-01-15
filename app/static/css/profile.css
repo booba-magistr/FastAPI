@@ -1,0 +1,15 @@
+.profile {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-name {
+    font-size: 2em;
+    border-bottom: solid 5px rgba(0, 0, 0, 0.3);
+}
+
+.profile-data p {
+    margin-top: 20px;
+    font-size: 1.3em;
+}

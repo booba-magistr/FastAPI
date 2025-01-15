@@ -55,3 +55,8 @@ async def logout_user(response:Response):
 @user_router.get('/users_list/')
 async def get_users_list(user_data: User = Depends(get_current_admin_user)):
     return await UsersDAO.get_all()
+
+
+@user_router.get('/profile/')
+async def get_profile(user_data: User = Depends(get_current_user)):
+    return user_data
